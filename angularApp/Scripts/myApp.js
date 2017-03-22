@@ -27,7 +27,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     })
 }])
 //global veriable for store service base path
-myApp.constant('serviceBasePath', 'http://localhost:25419');
+myApp.constant('serviceBasePath', 'http://localhost:1599');
 //controllers
 myApp.controller('homeController', ['$scope', 'dataService', function ($scope, dataService) {
     //FETCH DATA FROM SERVICES
@@ -70,79 +70,72 @@ myApp.controller('unauthorizeController', ['$scope', function ($scope) {
     $scope.data = "Sorry you are not authorize to access this page";
 }])
 //services
-myApp.factory('dataService', [
-    '$http', 'serviceBasePath', function($http, serviceBasePath) {
-        var fac = {};
-        fac.GetAnonymousData = function() {
-            return $http.get(serviceBasePath + '/api/data/forall').then(function(response) {
-                return response.data;
-            })
-        }
-
-        fac.GetAuthenticateData = function() {
-            return $http.get(serviceBasePath + '/api/data/authenticate').then(function(response) {
-                return response.data;
-            })
-        }
-
-        fac.GetAuthorizeData = function() {
-            return $http.get(serviceBasePath + '/api/data/authorize').then(function(response) {
-                return response.data;
-            })
-        }
-        return fac;
+myApp.factory('dataService', ['$http', 'serviceBasePath', function ($http, serviceBasePath) {
+    var fac = {};
+    fac.GetAnonymousData = function () {
+        return $http.get(serviceBasePath + '/api/data/forall').then(function (response) {
+            return response.data;
+        })
     }
-]);
 
-myApp.factory('userService', function() {
+    fac.GetAuthenticateData = function () {
+        return $http.get(serviceBasePath + '/api/data/authenticate').then(function (response) {
+            return response.data;
+        })
+    }
+
+    fac.GetAuthorizeData = function () {
+        return $http.get(serviceBasePath + '/api/data/authorize').then(function (response) {
+            return response.data;
+        })
+    }
+    return fac;
+}])
+myApp.factory('userService', function () {
     var fac = {};
     fac.CurrentUser = null;
-    fac.SetCurrentUser = function(user) {
+    fac.SetCurrentUser = function (user) {
         fac.CurrentUser = user;
         sessionStorage.user = angular.toJson(user);
     }
-    fac.GetCurrentUser = function() {
+    fac.GetCurrentUser = function () {
         fac.CurrentUser = angular.fromJson(sessionStorage.user);
         return fac.CurrentUser;
     }
     return fac;
-});
-
-myApp.factory('accountService', [
-    '$http', '$q', 'serviceBasePath', 'userService', function($http, $q, serviceBasePath, userService) {
-        var fac = {};
-        fac.login = function(user) {
-            var obj = { 'username': user.username, 'password': user.password, 'grant_type': 'password' };
-            Object.toparams = function ObjectsToParams(obj) {
-                var p = [];
-                for (var key in obj) {
-                    p.push(key + '=' + encodeURIComponent(obj[key]));
-                }
-                return p.join('&');
+})
+myApp.factory('accountService', ['$http', '$q', 'serviceBasePath', 'userService', function ($http, $q, serviceBasePath, userService) {
+    var fac = {};
+    fac.login = function (user) {
+        var obj = { 'username': user.username, 'password': user.password, 'grant_type': 'password' };
+        Object.toparams = function ObjectsToParams(obj) {
+            var p = [];
+            for (var key in obj) {
+                p.push(key + '=' + encodeURIComponent(obj[key]));
             }
+            return p.join('&');
+        }
 
-            var defer = $q.defer();
-            $http({
-                method: 'post',
-                url: serviceBasePath + "/token",
-                data: Object.toparams(obj),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).then(function(response) {
-                userService.SetCurrentUser(response.data);
-                defer.resolve(response.data);
-            }, function(error) {
-                defer.reject(error.data);
-            })
-            return defer.promise;
-        }
-        fac.logout = function() {
-            userService.CurrentUser = null;
-            userService.SetCurrentUser(userService.CurrentUser);
-        }
-        return fac;
+        var defer = $q.defer();
+        $http({
+            method: 'post',
+            url: serviceBasePath + "/token",
+            data: Object.toparams(obj),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(function (response) {
+            userService.SetCurrentUser(response.data);
+            defer.resolve(response.data);
+        }, function (error) {
+            defer.reject(error.data);
+        })
+        return defer.promise;
     }
-]);
-
+    fac.logout = function () {
+        userService.CurrentUser = null;
+        userService.SetCurrentUser(userService.CurrentUser);
+    }
+    return fac;
+}])
 //http interceptor
 myApp.config(['$httpProvider', function ($httpProvider) {
     var interceptor = function (userService, $q, $location) {
@@ -172,5 +165,3 @@ myApp.config(['$httpProvider', function ($httpProvider) {
     interceptor.$inject = params;
     $httpProvider.interceptors.push(interceptor);
 }]);
-
-
