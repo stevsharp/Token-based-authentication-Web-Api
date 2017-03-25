@@ -3,7 +3,7 @@
 myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/', {
-        redirectTo: '/home'
+        redirectTo : '/home'
     })
     .when('/home', {
         templateUrl: '/template/home.html',
@@ -27,7 +27,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     })
 }])
 //global veriable for store service base path
-myApp.constant('serviceBasePath', 'http://localhost:1599');
+myApp.constant('serviceBasePath', 'http://localhost:25419');
 //controllers
 myApp.controller('homeController', ['$scope', 'dataService', function ($scope, dataService) {
     //FETCH DATA FROM SERVICES
@@ -50,7 +50,7 @@ myApp.controller('authorizeController', ['$scope', 'dataService', function ($sco
         $scope.data = data;
     })
 }])
-myApp.controller('loginController', ['$scope', 'accountService', '$location', function ($scope, accountService, $location) {
+myApp.controller('loginController', ['$scope', 'accountService','$location', function ($scope, accountService, $location) {
     //FETCH DATA FROM SERVICES
     $scope.account = {
         username: '',
@@ -121,7 +121,7 @@ myApp.factory('accountService', ['$http', '$q', 'serviceBasePath', 'userService'
             method: 'post',
             url: serviceBasePath + "/token",
             data: Object.toparams(obj),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            headers : {'Content-Type' : 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             userService.SetCurrentUser(response.data);
             defer.resolve(response.data);
@@ -138,7 +138,8 @@ myApp.factory('accountService', ['$http', '$q', 'serviceBasePath', 'userService'
 }])
 //http interceptor
 myApp.config(['$httpProvider', function ($httpProvider) {
-    var interceptor = function (userService, $q, $location) {
+    var interceptor = function(userService, $q, $location)
+    {
         return {
             request: function (config) {
                 var currentUser = userService.GetCurrentUser();
@@ -147,7 +148,8 @@ myApp.config(['$httpProvider', function ($httpProvider) {
                 }
                 return config;
             },
-            responseError: function (rejection) {
+            responseError : function(rejection)
+            {
                 if (rejection.status === 401) {
                     $location.path('/login');
                     return $q.reject(rejection);

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webApiTokenAuthentication", "webApiTokenAuthentication\webApiTokenAuthentication.csproj", "{F2882071-6E50-4AC9-91B3-46C1B2EF6EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angularApp", "angularApp\angularApp.csproj", "{FA1431AC-DC96-444B-8DEB-FEC28454FAF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{AD9E97CC-42F5-413E-B675-107FEA4B1CF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2882071-6E50-4AC9-91B3-46C1B2EF6EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2882071-6E50-4AC9-91B3-46C1B2EF6EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2882071-6E50-4AC9-91B3-46C1B2EF6EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2882071-6E50-4AC9-91B3-46C1B2EF6EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA1431AC-DC96-444B-8DEB-FEC28454FAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA1431AC-DC96-444B-8DEB-FEC28454FAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA1431AC-DC96-444B-8DEB-FEC28454FAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA1431AC-DC96-444B-8DEB-FEC28454FAF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD9E97CC-42F5-413E-B675-107FEA4B1CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD9E97CC-42F5-413E-B675-107FEA4B1CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD9E97CC-42F5-413E-B675-107FEA4B1CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD9E97CC-42F5-413E-B675-107FEA4B1CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
